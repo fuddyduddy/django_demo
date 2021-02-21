@@ -26,7 +26,7 @@ urlpatterns += [
 urlpatterns += [
     # Warning: '/' at beginning of path unneccesary, However, to ensure the pathway clear. Leave it be and pending for debugging.
     path('products/', ProductListView.as_view(), name='product-list'),
-    path('product/<int:pk>', ProductDetailView.as_view(),name='product-detail'),
+    path('product/<int:pk>', ProductDetailView.as_view(), name='product-detail'),
 ]
 
 urlpatterns += [

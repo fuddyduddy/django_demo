@@ -5,9 +5,22 @@
 <h4>You are creating sales order ID: <strong>{{ model }}</strong></h4>
 <form method="post"><!-- action="/team_name_url/" -->
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
+    <label><strong>Customer: </strong> {{form.customer}}</label>
+    <br>
+    <label><strong>Products: </strong></label>
+    {% for product in form.product %}
+        <div class="myradio">
+            <label>{{product.id}}</label>
+            <a href="{{ product.get_absolute_url }}">{{ product }}</a>
+        </div>
+    {% endfor %}
+    <br>
+    <label><strong>Date of Order: </strong>{{form.orderDate}}</label>
+    <br>
+    <label><strong>Unit to sold: </strong>{{form.unit_sold}}</label>
+    <br>
+    <label>{{form.costs}}</label>
+    <br>
     <input type="submit" value="Submit" />
 </form>
 
