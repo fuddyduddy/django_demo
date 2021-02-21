@@ -72,21 +72,23 @@ class Order(models.Model):
     product         = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
     #markUp          = models.StringField(validators=[valid_pct])
     orderDate       = models.DateField(null=True, blank=True) # In real case, can't be null / blank.
+    unit_sold       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('1'))], null=True)
+    costs           = models.CharField(max_length=100, null=True)
 
-    def valid_pct(value):
-        if value.endswith("%"):
-            return 1 + float(value[:-1])/100
-        else:
-            try:
-                return float(value)
-            except ValueError:          
-                raise ValidationError(
-                    _('%(value)s is not a valid pct'),
-                        params={'value': value},
-                )
+    # def valid_pct(value):
+    #     if value.endswith("%"):
+    #         return 1 + float(value[:-1])/100
+    #     else:
+    #         try:
+    #             return float(value)
+    #         except ValueError:          
+    #             raise ValidationError(
+    #                 _('%(value)s is not a valid pct'),
+    #                     params={'value': value},
+    #             )
     
     def __str__(self):
-        return self.orderID
+        return str(self.orderID)
 
     def get_absolute_url(self):
         return reverse('order-detail', args=[str(self.id)])

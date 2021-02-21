@@ -2,6 +2,7 @@
 {% block content %}
 
 <h2 style="display: inline-block; line-height: 30px;">Create Sales Order</h2>
+<h4>You are creating sales order ID: <strong>{{ model }}</strong></h4>
 <form method="post"><!-- action="/team_name_url/" -->
     {% csrf_token %}
     <table>

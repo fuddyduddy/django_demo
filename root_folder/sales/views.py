@@ -4,7 +4,7 @@ from django.views import generic
 from sales.models import Employee, Customer, Vendor, Product, Order, TestModel
 
 from django.http import HttpResponse
-from sales.forms import TestForm
+from sales.forms import OrderForm
 
 # Create your views here.
 def index(request):
@@ -26,7 +26,7 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 class CustomerListView(generic.ListView):
-    print(Customer.objects.all().count())
+    # print(Customer.objects.all().count())
     model = Customer
     #context_object_name = 'the_customer_list'
 
@@ -35,7 +35,7 @@ class CustomerListView(generic.ListView):
     #   context['view_info'] = 'This is from views/CustomerListView'
 
 class OrderListView(generic.ListView):
-    print(Order.objects.all().count())
+    # print(Order.objects.all().count())
     model = Order
     #context_object_name = 'the_order_list'
 
@@ -44,7 +44,7 @@ class OrderListView(generic.ListView):
     #   context['view_info'] = 'This is from views/OrderListView'
 
 class ProductListView(generic.ListView):
-    print(Product.objects.all().count())
+    # print(Product.objects.all().count())
     model = Product
     #context_object_name = 'the_product_list'
 
@@ -73,12 +73,15 @@ class ProductDetailView(generic.DetailView):
 
 #     return render(request, 'form.html', {'form': form})
 
-def TestFormView(request):
+def OrderFormView(request, id=None): # (id=None) reserve for editing orderform use
+    model = Order.objects.all().count() + 1
+    print(type(model))
     if request.method == "POST":
-        form = TestForm(request.POST)
+        form = OrderForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data['product'].unitCost)
             if form.cleaned_data['unit_sold'] is not None:
+                print(f"Not None: {form.cleaned_data['unit_sold']}")
                 unitCost = form.cleaned_data['product'].unitCost * form.cleaned_data['unit_sold']
                 new_form = form.save(commit=False)
                 # https://youtu.be/qwE9TFNub84?t=743
@@ -87,12 +90,12 @@ def TestFormView(request):
             else:
                 form.save()
             print(f'form:- {form.cleaned_data}')
-            print(f'new_form:- {new_form.cleaned_data}')
-            form = TestForm()
+            print(f'new_form:- {new_form}')
+            form = OrderForm()
             # return redirect('/sales/')
     else: # For first time surf to the page or method=='GET'
-        form = TestForm()
-    return render(request, 'form.html', {'form': form})
+        form = OrderForm()
+    return render(request, 'orderform.html', {'form': form, 'model': model})
 
 
 
