@@ -1,0 +1,13 @@
+{% extends "base_page.html" %}
+{% block content %}
+
+<h2 style="display: inline-block; line-height: 30px;">Create Sales Order</h2>
+<form method="post"><!-- action="/team_name_url/" -->
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock%}
