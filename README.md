@@ -6,6 +6,6 @@ Django demo - Sales Order
 You will need to install python-decouple as dependency to read .env file <br>
 ``` pip3 install python-decouple==3.4 ```
 
-For the time being, only Sales Order Creation is available.
+You may create Customer, Products and Sales Order.
 
 The website deployed is classified for private testing use.

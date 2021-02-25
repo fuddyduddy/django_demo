@@ -56,15 +56,22 @@ class Vendor(models.Model):
     #     return reverse('model-detail-view', args=[str(self.id)])
 
 class Product(models.Model):
+    #id     = models.CharField()
+    auto_id         = models.AutoField(primary_key=True)
     name            = models.CharField(max_length=100)
+    description     = models.CharField(max_length=100)
     unit            = models.DecimalField(max_digits=8, decimal_places=0)
     unitCost        = models.DecimalField(max_digits=8, decimal_places=0)
+    unitSalesprice  = models.DecimalField(max_digits=8, decimal_places=0, null=True)
+
+    def get_id(self):
+        return self.auto_id
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('product-detail', args=[str(self.id)])
+        return reverse('product-detail', args=[str(self.auto_id)])
 
 class Order(models.Model):
     orderID         = models.AutoField(primary_key=True)
@@ -74,6 +81,19 @@ class Order(models.Model):
     orderDate       = models.DateField(null=True, blank=True) # In real case, can't be null / blank.
     unit_sold       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('1'))], null=True)
     costs           = models.CharField(max_length=100, null=True)
+
+    product2         = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+',)
+    unit_sold2       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('0'))], null=True,)
+    costs2           = models.CharField(max_length=100, null=True,)
+    product3         = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+',)
+    unit_sold3       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('0'))], null=True,)
+    costs3           = models.CharField(max_length=100, null=True,)
+    # product4         = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+    # unit_sold4       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('1'))], null=True)
+    # costs4           = models.CharField(max_length=100, null=True)
+    # product5         = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+    # unit_sold5       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('1'))], null=True)
+    # costs5           = models.CharField(max_length=100, null=True)
 
     # def valid_pct(value):
     #     if value.endswith("%"):
@@ -91,16 +111,16 @@ class Order(models.Model):
         return str(self.orderID)
 
     def get_absolute_url(self):
-        return reverse('order-detail', args=[str(self.id)])
+        return reverse('order-detail', args=[str(self.orderID)])
 
-class TestModel(models.Model):
-    name            = models.CharField(max_length=100)
-    summary         = models.CharField(max_length=300, null=True)
-    customer        = models.ForeignKey('Customer', on_delete=models.SET_NULL, null=True)
-    product         = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
-    unit_sold       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('1'))], null=True)
-    costs           = models.CharField(max_length=100, null=True)
+# class TestModel(models.Model):
+#     name            = models.CharField(max_length=100)
+#     summary         = models.CharField(max_length=300, null=True)
+#     customer        = models.ForeignKey('Customer', on_delete=models.SET_NULL, null=True)
+#     product         = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+#     unit_sold       = models.DecimalField(max_digits=9, decimal_places=0, help_text="max_digits = 9", validators=[MinValueValidator(int('1'))], null=True)
+#     costs           = models.CharField(max_length=100, null=True)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 

@@ -1,5 +1,35 @@
 {% extends "base_page.html" %}
 {% block content %}
-    <p>{{ product.name }}</p>
+    <table>
+        <tr>
+            <td>Product id: </td>
+            <td><strong>{{product.auto_id}}</strong></td>
+        </tr>
+        <tr>
+            <td>Product name: </td>
+            <td><strong>{{product.name}}</strong></td>
+        </tr>
+        <tr>
+            <td>Description: </td>
+            <td><strong>{{product.description}}</strong></td>
+        </tr>
+        <tr>
+            <td>Unit: </td>
+            <td><strong>{{product.unit}}</strong></td>
+        </tr>
+        <tr>
+            <td>Unit Cost: </td>
+            <td><strong>{{product.unitCost}}</strong></td>
+        </tr>
+        <tr>
+            <td>Unit marked-up Sales Price: </td>
+            <td><strong>{{product.unitSalesprice}}</strong></td>
+        </tr>
+    </table>
+
+
+
+
+
 
 {% endblock %}

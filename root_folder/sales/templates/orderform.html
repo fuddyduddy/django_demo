@@ -2,26 +2,77 @@
 {% block content %}
 
 <h2 style="display: inline-block; line-height: 30px;">Create Sales Order</h2>
-<h4>You are creating sales order ID: <strong>{{ model }}</strong></h4>
+<h4>You are creating sales order ID: <strong>{{ new_id }}</strong></h4>
 <form method="post"><!-- action="/team_name_url/" -->
     {% csrf_token %}
-    <label><strong>Customer: </strong> {{form.customer}}</label>
-    <br>
-    <label><strong>Products: </strong></label>
-    {% for product in form.product %}
-        <div class="myradio">
-            <label>{{product.id}}</label>
-            <a href="{{ product.get_absolute_url }}">{{ product }}</a>
-        </div>
-    {% endfor %}
-    <br>
     <label><strong>Date of Order: </strong>{{form.orderDate}}</label>
     <br>
-    <label><strong>Unit to sold: </strong>{{form.unit_sold}}</label>
+    <label><strong>Customer: </strong> {{form.customer}}</label>
+    <br>
+    <label><strong>Choose your 1st product item:</strong></label>
+    {% for product in form.product %}{% for b in queryset %}
+        {% if forloop.counter == forloop.parentloop.counter %}
+        <table>
+            <tr> 
+                <td>{{ product }}</td>
+                <td><a href="{{ request.scheme }}://{{ request.get_host }}/sales/product/{{b.auto_id}}">click me to view product detail</a></td>
+            </tr>
+        </table>
+        {% endif %}
+    {% endfor %}{% endfor %}
+    <label><strong>Unit to buy: </strong>{{form.unit_sold}}</label>
     <br>
     <label>{{form.costs}}</label>
     <br>
+
+    <label><strong>Choose your 2nd product item:</strong></label>
+    {% for product in form.product2 %}{% for b in queryset %}
+        {% if forloop.counter == forloop.parentloop.counter %}
+        <table>
+            <tr> 
+                <td>{{ product }}</td>
+                <td><a href="{{ request.scheme }}://{{ request.get_host }}/sales/product/{{b.auto_id}}">click me to view product detail</a></td>
+            </tr>
+        </table>
+        {%endif%}
+    {% endfor %}{%endfor%}
+    <label><strong>Unit to buy: </strong>{{form.unit_sold2}}</label>
+    <br>
+    <label>{{form.costs2}}</label>
+    <br>
+
+    <label><strong>Choose your 3rd product item:</strong></label>
+    {% for product in form.product3 %}{% for b in queryset %}
+        {% if forloop.counter == forloop.parentloop.counter %}
+        <table>
+            <tr> 
+                <td>{{ product }}</td>
+                <td><a href="{{ request.scheme }}://{{ request.get_host }}/sales/product/{{b.auto_id}}">click me to view product detail</a></td>
+            </tr>
+        </table>
+        {%endif%}
+    {% endfor %}{%endfor%}
+    <label><strong>Unit to buy: </strong>{{form.unit_sold3}}</label>
+    <br>
+    <label>{{form.costs3}}</label>
+    <br>
+
     <input type="submit" value="Submit" />
 </form>
+
+{% if form.errors %}
+    <div class="alert alert-danger alert-dismissible col-12 mx-1" role="alert">
+        <div id="form_errors">
+            {% for key, value in form.errors.items %}
+                <span class="fieldWrapper">
+                    {{ key }}:{{ value }}
+                </span>
+            {% endfor %}
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
 
 {% endblock%}

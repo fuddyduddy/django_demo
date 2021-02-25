@@ -1,0 +1,19 @@
+{% extends "base_page.html" %}
+{% block content %}
+
+<h2 style="display: inline-block; line-height: 30px;">Create Product</h2>
+<form method="post">
+    {% csrf_token %}
+    <label><strong>Product Name: </strong> {{form.name}}</label>
+    <br>
+    <label><strong>Product Description: {{form.description}}</strong></label>
+    <br>
+    <label><strong>Unit: </strong>{{form.unit}}</label>
+    <br>
+    <label><strong>Unit Cost: </strong>{{form.unitCost}}</label>
+    <br>
+    <p>The product sales price will be marked up by 5% by the unit cost to the nearest dollar.</p>
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock%}

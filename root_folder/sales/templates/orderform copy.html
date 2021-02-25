@@ -1,0 +1,76 @@
+{% extends "base_page.html" %}
+{% block content %}
+
+<h2 style="display: inline-block; line-height: 30px;">Create Sales Order</h2>
+<h4>You are creating sales order ID: <strong>{{ model }}</strong></h4>
+<form method="post"><!-- action="/team_name_url/" -->
+    {% csrf_token %}
+    <label><strong>Customer: </strong> {{form.customer}}</label>
+    <br>
+    <!--<label><strong>Products forms:<br>
+        {%for field in form.visible_fields%}
+            {%if field.label == 'Product'%}
+                {{field}}--{{field.name}}
+                {%for item in field%}
+                    {{item.instance.name}}
+                {%endfor%}
+            {%endif%}
+            {%if field.label == 'Product'%}
+                <div>Yes, {{field.label}}</div>
+            {%endif%}
+        {%endfor%}
+    </strong></label>-->
+    <p>==============================================================================</p>
+    {% for product in form.product %}
+        <table>
+            <tr> 
+                <td><div class="myradio">{{ product }}</div></td>
+                <td>Test linkage</td>
+                <td><a href="{{ product.get_absolute_url }}">{{ request.get_host }}</a></td>
+                <td><a href="{{ request.scheme }}://{{ request.get_host }}/sales/product/{{product.auto_id.pk}}">click me</a></td>
+                
+            </tr>
+        </table>
+    {% endfor %}
+    <br>
+    <label><strong>Date of Order: </strong>{{form.orderDate}}</label>
+    <br>
+    <label><strong>Unit to sold: </strong>{{form.unit_sold}}</label>
+    <br>
+    <label>{{form.costs}}</label>
+    <br>
+
+    <input type="submit" value="Submit" />
+</form>
+
+{% for item in queryset %}
+        <label>{{item.auto_id}}</label>
+        <!--{%if item.name == "product"%}
+            <p>Yes, product exists</p>
+            <p>{{item.queryset}}</p>
+            {%for test in item.queryset%}
+                <div>{{test}}</div>
+            {%endfor%}
+        {%endif%}-->
+{%endfor%}
+
+{% for a in form.product %}{%for b in queryset %}
+    {% if forloop.counter == forloop.parentloop.counter %}
+        <table>
+            <tr> 
+                <td><div class="myradio">{{ a }} & {{ b.auto_id }}</div></td>
+                <td>Test linkage</td>
+                <td><a href="{{ product.get_absolute_url }}">{{ request.get_host }}</a></td>
+                <td><a href="{{ request.scheme }}://{{ request.get_host }}/sales/product/{{b.auto_id}}">click me</a></td>
+                
+            </tr>
+        </table>
+    {%endif%}
+{% endfor %}{%endfor%}
+
+<!--{% for a in queryset %}
+        <div>{%cycle queryset queryset %}</div>
+{%endfor%}-->
+
+
+{% endblock%}

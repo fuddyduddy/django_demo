@@ -1,0 +1,16 @@
+{% extends "base_page.html" %}
+{% block content %}
+    {% if product_list %}
+    <ul>
+        {% for product in product_list %}
+            <li>
+                <a href="{{ product.get_absolute_url }}">{{ product.id }}</a> {{product.name }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+        <p>There is no product in the list yet.</p>
+    {% endif %}
+
+{% endblock %}

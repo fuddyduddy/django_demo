@@ -1,5 +1,68 @@
 {% extends "base_page.html" %}
 {% block content %}
-    <p>{{ order.orderID }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Print pdf" />
+    </form>
+    <table>
+        <tr>
+            <td style="padding: 10px;">Sales order ID:</td> 
+            <td style="padding: 10px;"><strong>{{ order.orderID }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;">Order Date:</td> 
+            <td style="padding: 10px;"><strong>{{ order.orderDate }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;">Customer:</td> 
+            <td style="padding: 10px;"><strong>{{ order.customer }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;">Product 1:</td> 
+            <td style="padding: 10px;"><strong>{{ order.product }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;">Unit Sold:</td> 
+            <td style="padding: 10px;"><strong>{{ order.unit_sold }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><i>Subtotal 1:</i></td>
+            <td>-----></td>
+            <td style="padding: 10px;"><strong>$ {{ order.costs }}</strong></td>
+        </tr>
+
+        <tr>
+            <td style="padding: 10px;">Product 2:</td>
+            <td style="padding: 10px;"><strong>{{ order.product2 }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;">Unit Sold:</td> 
+            <td style="padding: 10px;"><strong>{{ order.unit_sold2 }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><i>Subtotal 2:</i></td>
+            <td>-----></td> 
+            <td style="padding: 10px;"><strong>$ {{ order.costs2 }}</strong></td>
+        </tr>
+
+        <tr>
+            <td style="padding: 10px;">Product 3:</td> 
+            <td style="padding: 10px;"><strong>{{ order.product3 }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;">Unit Sold:</td> 
+            <td style="padding: 10px;"><strong>{{ order.unit_sold3 }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><i>Subtotal 3:</i></td>
+            <td>-----></td>
+            <td style="padding: 10px;"><strong>$ {{ order.costs3 }}</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><strong>Grandtotal:</strong></td>
+            <td>-----></td>
+            <td style="padding: 10px;"><strong>$ {{totalsales}}</strong></td>
+        </tr>
+    </table>
 
 {% endblock %}
